@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: test-client-id
+            client-secret: test-client-secret
+            scope:
+              - profile
+              - email
+
+jwt:
+  secret: test-secret-test-secret-test-secret-1234
+  access-expiration: 3600000
+  refresh-expiration: 1209600000
+
+app:
+  frontend:
+    redirect-uri: http://localhost:5173/oauth/callback
+  cookie:
+    secure: false
+  cors:
+    allowed-origins: http://localhost:5173
