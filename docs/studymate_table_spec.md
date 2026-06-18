@@ -135,6 +135,30 @@
 
 ---
 
+## refresh_token — 리프레시 토큰
+
+**테이블 한글명** 리프레시 토큰
+**테이블 영문명** refresh_token
+**테이블 설명** 액세스 토큰 재발급용 리프레시 토큰을 저장하는 테이블. 로그아웃 시 삭제로 무효화한다. (결정 근거: `docs/adr/0001`)
+
+| No. | 컬럼 한글명 | 컬럼 영문명 | 데이터 타입 | 제약 조건 | 비고 |
+|-----|------------|------------|------------|-----------|------|
+| 1 | 토큰 ID | id | BIGINT | PK, AUTO_INCREMENT | 고유 식별자 (대리 키) |
+| 2 | 사용자 ID | user_id | BIGINT | FK, UQ, NOT NULL | 소유 사용자 (users.id 참조). 사용자당 1건 |
+| 3 | 토큰 | token | VARCHAR(512) | NOT NULL | refresh JWT 문자열 (해시 저장은 후속 과제) |
+| 4 | 만료 시각 | expires_at | DATETIME | NOT NULL | 토큰 만료 시점 |
+| 5 | 생성 시각 | created_at | DATETIME | NOT NULL | 발급/회전 시점 (JPA Auditing) |
+
+> **사용자당 1세션**(`user_id` 유니크). 로그인·재발급 시 같은 행을 회전(rotate)하고, 로그아웃 시 삭제한다. 멀티 디바이스 세션은 미지원 (ADR-0001 참조).
+
+**인덱스 / 제약**
+
+| 인덱스명 | 컬럼 | 비고 |
+|----------|------|------|
+| uq_refresh_user | user_id | 사용자당 1개 토큰 (유니크) |
+
+---
+
 ## 삭제 정책 (Soft Delete)
 
 - **study · membership · comment 는 물리 삭제하지 않고 soft delete** (`deleted_at`에 시각 기록). 모든 조회는 `deleted_at IS NULL` 조건으로 필터한다. 구현: Hibernate 6 `@SoftDelete` 또는 `deleted_at` + `@SQLDelete` / `@Where`.
@@ -147,5 +171,4 @@
 
 | 테이블 | 용도 | 비고 |
 |--------|------|------|
-| refresh_token | 리프레시 토큰 저장/회전 | JWT 재발급 보안 강화 시 |
 | study_category | 모임 카테고리 · 태그 | 검색/필터 기능 도입 시 |
