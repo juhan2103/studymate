@@ -442,6 +442,8 @@ API가 일관되게 응답하기 위한 규약. 코드 스타일·패키지·git
 | `JWT_ACCESS_EXPIRATION` | 액세스 토큰 만료(ms) | `3600000` (1시간) | |
 | `JWT_REFRESH_EXPIRATION` | 리프레시 토큰 만료(ms) | `1209600000` (14일) | |
 | `CORS_ALLOWED_ORIGINS` | 허용 프론트 출처 | `http://localhost:5173` 등 | |
+| `FRONTEND_REDIRECT_URI` | 로그인 성공 후 토큰 전달 리다이렉트 대상 | `http://localhost:5173/oauth/callback` | |
+| `COOKIE_SECURE` | refresh 쿠키 Secure 플래그 | 로컬 `false` / 운영 `true` | |
 
 ### 8.2 application.yml 매핑 예시
 
@@ -465,6 +467,11 @@ jwt:
   secret: ${JWT_SECRET}
   access-expiration: ${JWT_ACCESS_EXPIRATION:3600000}
   refresh-expiration: ${JWT_REFRESH_EXPIRATION:1209600000}
+app:
+  frontend:
+    redirect-uri: ${FRONTEND_REDIRECT_URI:http://localhost:5173/oauth/callback}
+  cookie:
+    secure: ${COOKIE_SECURE:false}   # refresh 쿠키 Secure (운영 true)
 ```
 
 ### 8.3 환경별 주입 방식
