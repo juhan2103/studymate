@@ -55,7 +55,7 @@
 | 인증 | 소셜 로그인 | social login | OAuth2 | 외부 제공자(Google 등)에 인증을 위임하는 방식. | Google OAuth2 (추후 Kakao·Naver) |
 | 인증 | 제공자 | provider | - | 소셜 로그인 업체. `GOOGLE` / `KAKAO` / `NAVER`. | `users.provider` |
 | 인증 | 액세스 토큰 | access token | - | 인증에 사용하는 단기 JWT. | JWT |
-| 인증 | 리프레시 토큰 | refresh token | - | 액세스 토큰 재발급용 장기 토큰. | refresh token 저장소 (2차) |
+| 인증 | 리프레시 토큰 | refresh token | - | 액세스 토큰 재발급용 장기 토큰. 로그아웃 시 삭제로 무효화. | `refresh_token` 테이블 |
 | 인증 | 로그인 이력 | login history | - | 사용자 로그인 발생 기록. 보안 감사 및 MAU 집계에 사용. | `login_history` 테이블 |
 
 ## 비즈니스 지표 (Metric) — 향후 통계/분석용
