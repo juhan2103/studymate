@@ -61,7 +61,7 @@ DB·OAuth·JWT 비밀은 코드·깃에 하드코딩 금지. `application-local.
 - **분석**: 해당 사양 절만 읽고 범위·영향 파일 파악 → 범위 확인
 - **설계**: Plan 모드로 패키지·DTO·엔티티·에러포맷 설계 → 승인 (이 경계는 Plan 모드로 강제)
 - **구현**: `feat/*` 브랜치에서 규약 준수, 논리 단위로 커밋
-- **검증**: `spotlessApply` → `build`/`test` 통과 → 커밋·PR
+- **검증**: `spotlessApply` → `build`/`test` 통과 → **`code-reviewer` 에이전트로 코드리뷰**(`.claude/agents/`) → 커밋·PR
 
 ## Git
 
