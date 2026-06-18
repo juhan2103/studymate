@@ -28,6 +28,7 @@ Spring Boot 4.0.x · Java 17 · Spring Security 7 · Jackson 3 · JPA(Hibernate 
 - 기능·API·권한·상태전이·정원규칙(R1~R5)·페이징·에러포맷: `docs/studymate_plan.md`
 - DB 컬럼·인덱스·삭제정책: `docs/studymate_table_spec.md`
 - 코드·Git 규약: `docs/studymate_convention.md`
+- 주요 기술 결정 기록(왜 그렇게 했나): `docs/adr/`
 
 작업할 기능의 해당 절만 읽는다. 예) 승인/거절(US-14) → 기획서 4.3·6.4 + 테이블정의서 `membership`.
 
