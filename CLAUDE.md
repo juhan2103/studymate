@@ -53,6 +53,18 @@ Spring Boot 4.0.x · Java 17 · Spring Security 7 · Jackson 3 · JPA(Hibernate 
 
 DB·OAuth·JWT 비밀은 코드·깃에 하드코딩 금지. `application-local.yml` 또는 `.env`로 주입(둘 다 gitignore). MySQL은 `docker compose up -d`. `ddl-auto`: 로컬 `update` / 그 외 `validate`.
 
+## 작업 흐름 (파이프라인)
+
+기능 구현은 **분석 → 설계 → 구현 → 검증** 순서로 진행하고, **단계를 한 번에 몰아 실행하지 않는다.** 각 단계가 끝나면 결과를 보고하고 **"다음 단계 진행할까요?"라고 확인받은 뒤** 넘어간다.
+
+- **분석**: 해당 사양 절만 읽고 범위·영향 파일 파악 → 범위 확인
+- **설계**: Plan 모드로 패키지·DTO·엔티티·에러포맷 설계 → 승인 (이 경계는 Plan 모드로 강제)
+- **구현**: `feat/*` 브랜치에서 규약 준수, 논리 단위로 커밋
+- **검증**: `spotlessApply` → `build`/`test` 통과 → 커밋·PR
+
 ## Git
 
-Conventional Commits `type(scope): 제목`. GitHub Flow: `feat/*` `fix/*` `docs/*` → PR → `main`.
+- Conventional Commits `type(scope): 제목`.
+- GitHub Flow: `feat/*` `fix/*` `docs/*` `chore/*` → PR → `main`. **1 기능 = 1 브랜치 = 1 PR.**
+- **`main`에는 직접 commit·merge·push 금지.** main 반영은 **PR 생성 후 `gh pr merge`(서버측 머지)** 로만 한다 — 로컬 머지로 우회하지 않는다.
+- **커밋은 논리 단위로 분리한다** (PR이 하나여도). 구현을 끝에 한 커밋으로 몰지 말고 단계마다 커밋하며, 커밋 순서는 컴파일 의존성 순으로 둔다.
