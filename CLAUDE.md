@@ -69,3 +69,5 @@ DB·OAuth·JWT 비밀은 코드·깃에 하드코딩 금지. `application-local.
 - GitHub Flow: `feat/*` `fix/*` `docs/*` `chore/*` → PR → `main`. **1 기능 = 1 브랜치 = 1 PR.**
 - **`main`에는 직접 commit·merge·push 금지.** main 반영은 **PR 생성 후 `gh pr merge`(서버측 머지)** 로만 한다 — 로컬 머지로 우회하지 않는다.
 - **커밋은 논리 단위로 분리한다** (PR이 하나여도). 구현을 끝에 한 커밋으로 몰지 말고 단계마다 커밋하며, 커밋 순서는 컴파일 의존성 순으로 둔다.
+
+> 위 작업 흐름·Git 규약은 **요약(운영 지침)** 이다. 상세·근거는 `docs/studymate_convention.md` §3·§4를 따른다.
